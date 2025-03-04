@@ -27,6 +27,7 @@ void autorizar_usuarios_1(char *host)
 		clnt_perror (clnt, "call failed");
 	}
 	
+	
 	/*Llamado al procesamiento para generar el turno*/
 	identificacion = (char*) malloc(50*sizeof(char));
 	printf("=== Sistema para la generacion de turnos ===");
@@ -46,7 +47,7 @@ void autorizar_usuarios_1(char *host)
 		printf("Cantidad de usuarios en la fila virtual: %d", (*result_1).cantidadUsuariosFilaVirtual);
 		printf("\n");
 	}
-
+	
 	#ifndef	DEBUG
 	clnt_destroy (clnt);
 	#endif	 /* DEBUG */
@@ -56,13 +57,25 @@ void autorizar_usuarios_1(char *host)
 
 int main (int argc, char *argv[])
 {
+	int opcion;
 	char *host;
 
-	if (argc < 2) {
-		printf ("usage: %s server_host\n", argv[0]);
-		exit (1);
-	}
-	host = argv[1];
-	autorizar_usuarios_1 (host);
-exit (0);
+	do
+	{
+		printf("=== Menu sistema para la generacion de turnos === \n");
+		printf("1. Generar turno.\n");
+		printf("2. Salir. \n");
+		printf("=================================================\n");
+
+		if (argc < 2) {
+			printf ("usage: %s server_host\n", argv[0]);
+			exit (1);
+		}
+		scanf("%d", opcion);
+		host = argv[1];
+		autorizar_usuarios_1 (host);
+	} while (opcion != 2);
+
+	exit (0);
 }
+
